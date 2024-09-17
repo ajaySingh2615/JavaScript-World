@@ -52,5 +52,100 @@ class Car extends Vehical {
 }
 
 let myCar = new Car("Toyota", "Corolla");
-console.log(myCar.start());
-console.log(myCar.drive());
+// console.log(myCar.start());
+// console.log(myCar.drive());
+
+// Encapsulation
+class BankAccount {
+  #balance = 0;
+
+  deposit(amount) {
+    this.#balance += amount;
+    return this.#balance;
+  }
+
+  getBalance() {
+    return `$ ${this.#balance}`;
+  }
+}
+
+let account = new BankAccount();
+// console.log(account.getBalance());
+
+// Abstraction
+
+class CoffeMachine {
+  start() {
+    // call DB
+    // filter value
+    return `Starting the machine..`;
+  }
+  brewCoffee() {
+    // complex calculations
+    return `brewing coffee`;
+  }
+  pressStartButton() {
+    const startMessage = this.start();
+    const brewMessage = this.brewCoffee();
+    return `${startMessage}\n${brewMessage}`;
+  }
+}
+
+let myMachine = new CoffeMachine();
+// console.log(myMachine.pressStartButton());
+
+// Polymorphism
+class Bird {
+  fly() {
+    return `Flying...`;
+  }
+}
+
+class Penguin extends Bird {
+  fly() {
+    return "Penguin can't fly";
+  }
+}
+
+let bird = new Bird();
+let penguin = new Penguin();
+// console.log(bird.fly());
+// console.log(penguin.fly());
+
+// static methods
+
+class Calculator {
+  static add(a, b) {
+    return a + b;
+  }
+}
+
+// let miniCal = new Calculator();
+// console.log(Calculator.add(2, 3));
+
+// Getters and Setters
+
+class Employee {
+  #salary;
+
+  constructor(name, salary) {
+    this.name = name;
+    this.#salary = salary;
+  }
+
+  get salary() {
+    return `You are not allowed to see salary`;
+  }
+
+  set salary(value) {
+    if (value < 0) {
+      console.error("Invalid salary");
+    } else {
+      this._salary = value;
+    }
+  }
+}
+
+let emp = new Employee("Alice", 50000);
+console.log(emp.salary);
+emp.salary = -60000;
