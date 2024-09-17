@@ -87,3 +87,9 @@ h1 {
 #todo-list li button:hover {
   background-color: #c0392b;
 }
+
+/* Completed task styling */
+.completed span {
+  text-decoration: line-through;
+  color: #b9bbbe; /* Lighter color to indicate completion */
+}

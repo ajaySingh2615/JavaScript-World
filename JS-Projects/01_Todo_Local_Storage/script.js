@@ -22,12 +22,42 @@ document.addEventListener("DOMContentLoaded", () => {
     //saved in local storage
     saveTasks();
 
+    renderTasks(newTask);
+
     todoInput.value = ""; // clear input
     console.log(tasks);
   });
 
+  // rendering an array
   function renderTasks(task) {
-    console.log(task);
+    console.log(task.text);
+    const li = document.createElement("li");
+    li.setAttribute("data-id", task.id);
+
+    // Apply completed class if task is already completed
+    if (task.completed) li.classList.add("completed");
+
+    li.innerHTML = `
+    <span>${task.text}</span>
+    <button>delete</button>`;
+
+    li.addEventListener("click", (e) => {
+      console.log("clicked");
+      if (e.target.tagName === "BUTTON") return; // Avoid toggling on button click
+      task.completed = !task.completed; // Toggle task completion
+      li.classList.toggle("completed"); // Add or remove the 'completed' class
+      saveTasks(); // Save tasks after change
+    });
+
+    // removing the tasks
+    li.querySelector("button").addEventListener("click", (e) => {
+      e.stopPropagation(); // prevent toggle from firing
+      tasks = tasks.filter((t) => t.id !== task.id);
+      li.remove();
+      saveTasks();
+    });
+
+    todoList.appendChild(li);
   }
 
   // local storage function
